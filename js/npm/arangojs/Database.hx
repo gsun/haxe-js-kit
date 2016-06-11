@@ -14,10 +14,17 @@ typedef DatabaseOptions = {
 	?promise : Dynamic
 }
 
+typedef UserOptions = {
+	username : String,
+	?passwd : String,
+	?active : Bool,
+	?extra : {}
+}
+
 typedef Aqb = Either<String, { function toAQL() : String; }>;
 
 extern class Database
-implements npm.Package.RequireNamespace<"arangojs", "^4.3.0">
+implements npm.Package.RequireNamespace<"arangojs", "^4.5.1">
 {
 	@:overload(function() : Database {})
 	@:overload(function(config : String) : Database {})
@@ -27,7 +34,7 @@ implements npm.Package.RequireNamespace<"arangojs", "^4.3.0">
 
 	public function useDatabase(databaseName : String) : Database;
 	@:overload(function(databaseName : String, cb : ArangoCallback<Dynamic>) : Void {})
-	public function createDatabase(databaseName : String, users : Array<Dynamic>, cb : ArangoCallback<Dynamic>) : Void;
+	public function createDatabase(databaseName : String, users : Array<UserOptions>, cb : ArangoCallback<Dynamic>) : Void;
 	public function get(cb : ArangoCallback<Dynamic>) : Void;
 	public function listDatabases(cb : ArangoCallback<Array<String>>) : Void;
 	public function listUserDatabases(cb : ArangoCallback<Array<String>>) : Void;
@@ -52,25 +59,26 @@ implements npm.Package.RequireNamespace<"arangojs", "^4.3.0">
 
 	// Transactions
 	
-	@:overload(function(collections : Either3<String, {}, Array<String>>, action : String, cb : ArangoCallback<Dynamic>) : Void {})
-	@:overload(function(collections : Either3<String, {}, Array<String>>, action : String, params : Array<{}>, cb : ArangoCallback<Dynamic>) : Void {})
-	public function transaction(collections : Either3<String, {}, Array<String>>, action : String, params : Array<{}>, lockTimeout : Int, cb : ArangoCallback<Dynamic>) : Void;
+	@:overload(function(collections : Either3<String, {read: Array<String>, write: Array<String>}, Array<String>>, action : String, cb : ArangoCallback<Dynamic>) : Void {})
+	@:overload(function(collections : Either3<String, {read: Array<String>, write: Array<String>}, Array<String>>, action : String, params : Array<Dynamic>, cb : ArangoCallback<Dynamic>) : Void {})
+	public function transaction(collections : Either3<String, {read: Array<String>, write: Array<String>}, Array<String>>, action : String, params : Array<Dynamic>, lockTimeout : Int, cb : ArangoCallback<Dynamic>) : Void;
 	
 	// Queries
-	// aqlQuery macro
 
-        @:overload(function<T>(query : { query: Either<String, Aqb>, ?bindVars : {} }, opts : {}, cb : ArangoCallback<Cursor<T>>) : Void {})
+	@:overload(function<T>(query : { query: Either<String, Aqb>, ?bindVars : {} }, opts : {}, cb : ArangoCallback<Cursor<T>>) : Void {})
 	@:overload(function<T>(query : { query: Either<String, Aqb>, ?bindVars : {} }, cb : ArangoCallback<Cursor<T>>) : Void {})
 	@:overload(function<T>(query : Either<String, Aqb>, bindVars : {}, opts : {}, cb : ArangoCallback<Cursor<T>>) : Void {})
 	@:overload(function<T>(query : Either<String, Aqb>, bindVars : {}, cb : ArangoCallback<Cursor<T>>) : Void {})
 	public function query<T>(query : Either<String, Aqb>, cb : ArangoCallback<Cursor<T>>) : Void;
+	
+	// macro for aqlQuery: https://github.com/arangodb/arangojs#aql
 
 	// Managing AQL user functions
 	
 	public function listFunctions(cb : ArangoCallback<Array<Dynamic>>) : Void;
 	public function createFunction(name : String, code : String, cb : ArangoCallback<Dynamic>) : Void;
 	@:overload(function(name : String, cb : ArangoCallback<Dynamic>) : Void {})
-	public function dropFunction(name : String, group : String, cb : ArangoCallback<Dynamic>) : Void;
+	public function dropFunction(name : String, group : Bool, cb : ArangoCallback<Dynamic>) : Void;
 	
 	// Arbitrary HTTP routes
 	
