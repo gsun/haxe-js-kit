@@ -17,10 +17,22 @@ typedef CollectionImportResult = {
 	ignored : Int
 }
 
+typedef CollectionImportOptions = {
+	?waitForSync : Bool,
+	?details : Bool,
+	?type : CollectionImportType
+}
+
 @:enum abstract CollectionListType(String) from String to String {
 	var id = "id";
 	var key = "key";
 	var path = "path";
+}
+
+@:enum abstract CollectionImportType(String) from String to String {
+	var auto = "auto";
+	var array = "array";
+	var documents = "documents";
 }
 
 extern class Collection
@@ -51,31 +63,26 @@ extern class Collection
 	// Manipulating indexes
 
 	public function createIndex(details : {}, cb : ArangoCallback<Dynamic>) : Void;
-	public function createCapConstraint(size : { }, cb : ArangoCallback<Dynamic>) : Void;
-	@:overload(function(fields : Array<String>, cb : ArangoCallback<Dynamic>) : Void {})
-	public function createHashIndex(fields : Array<String>, opts : {}, cb : ArangoCallback<Dynamic>) : Void;
-	@:overload(function(fields : Array<String>, cb : ArangoCallback<Dynamic>) : Void {})
-	public function createSkipList(fields : Array<String>, opts : {}, cb : ArangoCallback<Dynamic>) : Void;
-	@:overload(function(fields : Array<String>, cb : ArangoCallback<Dynamic>) : Void {})
-	public function createGeoIndex(fields : Array<String>, opts : {}, cb : ArangoCallback<Dynamic>) : Void;
-	@:overload(function(fields : Array<String>, cb : ArangoCallback<Dynamic>) : Void {})
-	public function createFulltextIndex(fields : Array<String>, minLength : Int, cb : ArangoCallback<Dynamic>) : Void;
-	public function index(indexHandle : String, cb : ArangoCallback<Dynamic>) : Void;
+	@:overload(function(fields : Either<String, Array<String>>, cb : ArangoCallback<Dynamic>) : Void {})
+	public function createHashIndex(fields : Either<String, Array<String>>, opts : Either<Bool, {}>, cb : ArangoCallback<Dynamic>) : Void;
+	@:overload(function(fields : Either<String, Array<String>>, cb : ArangoCallback<Dynamic>) : Void {})
+	public function createSkipList(fields : Either<String, Array<String>>, opts : {}, cb : ArangoCallback<Dynamic>) : Void;
+	@:overload(function(fields : Either<String, Array<String>>, cb : ArangoCallback<Dynamic>) : Void {})
+	public function createGeoIndex(fields : Either<String, Array<String>>, opts : {}, cb : ArangoCallback<Dynamic>) : Void;
+	@:overload(function(fields : Either<String, Array<String>>, cb : ArangoCallback<Dynamic>) : Void {})
+	public function createFulltextIndex(fields : Either<String, Array<String>>, minLength : Int, cb : ArangoCallback<Dynamic>) : Void;
+	public function index(indexHandle : Either<String, {id: String}>, cb : ArangoCallback<Dynamic>) : Void;
 	public function indexes(cb : ArangoCallback<Array<Dynamic>>) : Void;
 	public function dropIndex(indexHandle : String, cb : ArangoCallback<Dynamic>) : Void;
 
 	// Simple queries
 
-	@:overload(function<T>(cb : ArangoCallback<Cursor<T>>) : Void {})
-	public function all<T>(opts : {}, cb : ArangoCallback<Cursor<T>>) : Void;
-	public function any<T>(cb : ArangoCallback<T>) : Void;
-	@:overload(function<T>(cb : ArangoCallback<Array<T>>) : Void {})
-	public function first<T>(opts : Either<{}, Int>, cb : ArangoCallback<Array<T>>) : Void;
-	@:overload(function<T>(cb : ArangoCallback<Array<T>>) : Void {})
-	public function last<T>(opts : Either<{}, Int>, cb : ArangoCallback<Array<T>>) : Void;
-	@:overload(function<T>(example : {}, cb : ArangoCallback<Cursor<T>>) : Void {})
-	public function byExample<T>(example : {}, opts : {}, cb : ArangoCallback<Cursor<T>>) : Void;
-	public function firstExample<T>(example : {}, cb : ArangoCallback<T>) : Void;
+	@:overload(function(cb : ArangoCallback<Cursor<Dynamic>>) : Void {})
+	public function all(opts : {}, cb : ArangoCallback<Cursor<Dynamic>>) : Void;
+	public function any(cb : ArangoCallback<Dynamic>) : Void;
+	@:overload(function(example : {}, cb : ArangoCallback<Cursor<Dynamic>>) : Void {})
+	public function byExample(example : {}, opts : {}, cb : ArangoCallback<Cursor<Dynamic>>) : Void;
+	public function firstExample(example : {}, cb : ArangoCallback<Dynamic>) : Void;
 
 	@:overload(function(example : {}, cb : ArangoCallback<Dynamic>) : Void {})
 	public function removeByExample(example : {}, opts : {}, cb : ArangoCallback<Dynamic>) : Void;
@@ -87,16 +94,13 @@ extern class Collection
 	@:overload(function(keys : Array<String>, cb : ArangoCallback<Dynamic>) : Void {})
 	public function removeByKeys(keys : Array<String>, opts : {}, cb : ArangoCallback<Dynamic>) : Void;
 
-	@:overload(function<T>(fieldName : String, query : String, cb : ArangoCallback<Cursor<T>>) : Void {})
-	public function fulltext<T>(fieldName : String, query : String, opts : {}, cb : ArangoCallback<Cursor<T>>) : Void;
+	@:overload(function(fieldName : String, query : String, cb : ArangoCallback<Cursor<Dynamic>>) : Void {})
+	public function fulltext(fieldName : String, query : String, opts : {}, cb : ArangoCallback<Cursor<Dynamic>>) : Void;
 
 	// Bulk importing documents
 
 	// Unfortunately import is a reserved word, so this method has to be static.
-	@:overload(function<T>(collection : Collection, data : Array<T>, cb : ArangoCallback<CollectionImportResult>) : Void {})
-	@:overload(function<T>(collection : Collection, data : Array<T>, opts : {}, cb : ArangoCallback<CollectionImportResult>) : Void {})
-	@:overload(function<T>(collection : Collection, data : Array<Array<T>>, cb : ArangoCallback<CollectionImportResult>) : Void {})
-	public static inline function importData<T>(collection : Collection, data : Array<Array<T>>, opts : {}, cb : ArangoCallback<CollectionImportResult>) : Void {
+	public static inline function importData(collection : Collection, data : Either<String, Array<Dynamic>>, ?opts : CollectionImportOptions, cb : ArangoCallback<CollectionImportResult>) : Void {
 		untyped collection['import'](data, opts, cb);
 	}
 	
