@@ -5,7 +5,7 @@ extern class Cursor<T>
 	public var count(default, never) : Null<Int>;
 	
 	public function all(cb : ArangoCallback<Array<T>>) : Void;
-	public function next(cb : ArangoCallback<T>) : Void;
+	public function next(cb : ArangoCallback<Null<T>>) : Void;
 	public function hasNext() : Bool;
 
 	@:overload(function( fn : T -> Void, ?cb : ArangoCallback<T>) : Void {})

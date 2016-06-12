@@ -27,5 +27,5 @@ extern class Graph
 	@:overload(function(definitionName : String, cb : ArangoCallback<Dynamic>) : Void {})
 	public function removeEdgeDefinition(definitionName : String, dropCollection : Bool, cb : ArangoCallback<Dynamic>) : Void;	
 	
-	public function traversal<T>(startVertex : String, opts : {}, cb : ArangoCallback<T>) : Void;
+	public function traversal(startVertex : Either<String, {}>, opts : {}, cb : ArangoCallback<Dynamic>) : Void;
 }
