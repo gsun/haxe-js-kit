@@ -63,7 +63,6 @@ extern class Collection
 	// Manipulating indexes
 
 	public function createIndex(details : {}, cb : ArangoCallback<Dynamic>) : Void;
-	public function createCapConstraint(size : Either<Int, {size: Int, byteSize: Int}>, cb : ArangoCallback<Dynamic>) : Void;
 	@:overload(function(fields : Either<String, Array<String>>, cb : ArangoCallback<Dynamic>) : Void {})
 	public function createHashIndex(fields : Either<String, Array<String>>, opts : Either<Bool, {}>, cb : ArangoCallback<Dynamic>) : Void;
 	@:overload(function(fields : Either<String, Array<String>>, cb : ArangoCallback<Dynamic>) : Void {})
