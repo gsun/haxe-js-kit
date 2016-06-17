@@ -24,7 +24,7 @@ typedef UserOptions = {
 typedef Aqb = Either<String, { function toAQL() : String; }>;
 
 extern class Database
-implements npm.Package.RequireNamespace<"arangojs", "^5.0.0">
+implements npm.Package.RequireNamespace<"arangojs", "^5.0.1">
 {
 	@:overload(function() : Database {})
 	@:overload(function(config : String) : Database {})
