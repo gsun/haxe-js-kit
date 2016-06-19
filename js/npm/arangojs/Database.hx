@@ -2,14 +2,20 @@ package js.npm.arangojs;
 
 import js.support.Either;
 import js.support.Either.Either3;
+#if !browser
 import js.node.http.Agent;
+#end
 
 typedef DatabaseOptions = {
 	?url : String,
 	?databaseName : String,
 	?arangoVersion : Int,
-	?headers : {},
+	?headers : { },
+	#if !browser
 	?agent : Agent,
+	#else
+	?agent : Dynamic,
+	#end
 	?agentOptions : {},
 	?promise : Dynamic
 }
@@ -23,8 +29,13 @@ typedef UserOptions = {
 
 typedef Aqb = Either<String, { function toAQL() : String; }>;
 
+#if browser
+@:native("arangojs.Database")
+#end
 extern class Database
+#if !browser
 implements npm.Package.RequireNamespace<"arangojs", "^5.0.1">
+#end
 {
 	@:overload(function() : Database {})
 	@:overload(function(config : String) : Database {})
