@@ -34,7 +34,7 @@ typedef Aqb = Either<String, { function toAQL() : String; }>;
 #end
 extern class Database
 #if !browser
-implements npm.Package.RequireNamespace<"arangojs", "^5.0.1">
+implements npm.Package.RequireNamespace<"arangojs", "^5.0.2">
 #end
 {
 	@:overload(function() : Database {})
