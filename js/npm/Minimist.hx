@@ -44,7 +44,7 @@ implements Dynamic
 	 * Contains all the arguments that didn't have an option associated with them.
 	 */
 	public var _(get, null) : Array<Dynamic>;
-	inline function get__() : Array<Dynamic> {
+	@:noCompletion inline function get__() : Array<Dynamic> {
 		return this._;
 	}	
 }
