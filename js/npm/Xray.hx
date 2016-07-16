@@ -12,7 +12,7 @@ typedef XrayCallback = Error -> Dynamic -> Void;
 typedef XrayDriver = XrayDriverContext -> (Error -> XrayDriverContext -> Void) -> Void;
 
 extern class Xray
-implements npm.Package.Require<"x-ray", "^2.0.3">
+implements npm.Package.Require<"x-ray", "^2.3.0">
 {
 	@:selfCall function new() : Void;
 
