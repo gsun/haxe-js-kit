@@ -26,7 +26,7 @@ implements npm.Package.Require<"ya-csv", "^0.9.4">
 	public static function createCsvStreamReader(reader : IReadable, options : YaCsvOptions) : YaCsv;
 
 	// Write
-	@:overload(function(writer : IWritable) : YaCsvWriter {})
+	@:overload(function(fileName : String) : YaCsvWriter {})	
 	public static function createCsvFileWriter(fileName : String, options : {}) : YaCsvWriter;
 
 	@:overload(function(writer : IWritable) : YaCsvWriter {})
@@ -38,4 +38,5 @@ implements npm.Package.Require<"ya-csv", "^0.9.4">
 extern class YaCsvWriter
 {
 	public function writeRecord<T : Array<Dynamic>>(data : T) : Void;
+	public var writeStream : IWritable;
 }
