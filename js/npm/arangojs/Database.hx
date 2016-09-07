@@ -27,6 +27,14 @@ typedef UserOptions = {
 	?extra : {}
 }
 
+typedef ListCollectionsResult = {
+	id : Int,
+	name : String,
+	isSystem : Bool,
+	status : Int,
+	type : Int
+}
+
 typedef Aqb = Either<String, { function toAQL() : String; }>;
 
 #if browser
@@ -58,7 +66,7 @@ implements npm.Package.RequireNamespace<"arangojs", "^5.0.2">
 	public function collection(collectionName : String) : DocumentCollection;
 	public function edgeCollection(collectionName : String) : EdgeCollection;
 	@:overload(function(cb : ArangoCallback<Array<Dynamic>>) : Void {})
-	public function listCollections(excludeSystem : Bool, cb : ArangoCallback<Array<Dynamic>>) : Void;
+	public function listCollections(excludeSystem : Bool, cb : ArangoCallback<Array<ListCollectionsResult>>) : Void;
 	@:overload(function(cb : ArangoCallback<Array<Collection>>) : Void {})
 	public function collections(excludeSystem : Bool, cb : ArangoCallback<Array<Collection>>) : Void;
 	
