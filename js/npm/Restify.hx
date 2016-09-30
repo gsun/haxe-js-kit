@@ -41,7 +41,7 @@ extern class Restify implements npm.Package.Require<'restify', '^4.0.0'>
     // Plugins
     public static function acceptParser(types : Array<String>) : MiddlewareCallback;
     public static function authorizationParser() : MiddlewareCallback;
-    public static function CORS(options : Dynamic) : MiddlewareCallback;
+    public static function CORS(?options : Dynamic) : MiddlewareCallback;
     public static function dateParser(?clockSkew : Int) : MiddlewareCallback;
     public static function queryParser(?option : Dynamic) : MiddlewareCallback;
     public static function jsonp() : MiddlewareCallback;
