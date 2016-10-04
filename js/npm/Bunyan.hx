@@ -36,7 +36,7 @@ implements npm.Package.Require<"bunyan", "^1.8.0">
 	@:overload(function(error: Error): Void {}) // Special case to log an `Error` instance to the record.
 	@:overload(function(error: Error, message: String, variables: Rest<Dynamic>): Void {}) // ... or you can specify the "msg".
   public function trace(fieldsObject: Dynamic, message: String): Void;
-  
+
 	@:overload(function(): Bool {}) // Returns  a boolean: is the "info" level enabled
 	@:overload(function(message: String): Void {}) // Log a simple string message (or number).
 	@:overload(function(message: String, variables: Rest<Dynamic>): Void {}) // Uses `util.format` for msg formatting.

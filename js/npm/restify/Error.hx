@@ -5,7 +5,6 @@ typedef ErrorOptions = {
     ?statusCode : Int
 }
 
-@:native('errors.HttpError')
 extern class HttpError extends js.Error
 {
     public var code : String;
@@ -15,7 +14,6 @@ extern class HttpError extends js.Error
 }
 
 // (400 Bad Request)
-@:native('errors.BadRequestError')
 extern class BadRequestError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -23,7 +21,6 @@ extern class BadRequestError extends HttpError
 }
 
 // (401 Unauthorized)
-@:native('errors.UnauthorizedError')
 extern class UnauthorizedError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -31,7 +28,6 @@ extern class UnauthorizedError extends HttpError
 }
 
 // (402 Payment Required)
-@:native('errors.PaymentRequiredError')
 extern class PaymentRequiredError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -39,7 +35,6 @@ extern class PaymentRequiredError extends HttpError
 }
 
 // (403 Forbidden)
-@:native('errors.ForbiddenError')
 extern class ForbiddenError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -47,7 +42,6 @@ extern class ForbiddenError extends HttpError
 }
 
 // (404 Not Found)
-@:native('errors.NotFoundError')
 extern class NotFoundError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -55,7 +49,6 @@ extern class NotFoundError extends HttpError
 }
 
 // (405 Method Not Allowed)
-@:native('errors.MethodNotAllowedError')
 extern class MethodNotAllowedError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -63,7 +56,6 @@ extern class MethodNotAllowedError extends HttpError
 }
 
 // (406 Not Acceptable)
-@:native('errors.NotAcceptableError')
 extern class NotAcceptableError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -71,7 +63,6 @@ extern class NotAcceptableError extends HttpError
 }
 
 // (407 Proxy Authentication Required)
-@:native('errors.ProxyAuthenticationRequiredError')
 extern class ProxyAuthenticationRequiredError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -79,7 +70,6 @@ extern class ProxyAuthenticationRequiredError extends HttpError
 }
 
 // (408 Request Time-out)
-@:native('errors.RequestTimeoutError')
 extern class RequestTimeoutError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -87,7 +77,6 @@ extern class RequestTimeoutError extends HttpError
 }
 
 // (409 Conflict)
-@:native('errors.ConflictError')
 extern class ConflictError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -95,7 +84,6 @@ extern class ConflictError extends HttpError
 }
 
 // (410 Gone)
-@:native('errors.GoneError')
 extern class GoneError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -103,7 +91,6 @@ extern class GoneError extends HttpError
 }
 
 // (411 Length Required)
-@:native('errors.LengthRequiredError')
 extern class LengthRequiredError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -111,7 +98,6 @@ extern class LengthRequiredError extends HttpError
 }
 
 // (412 Precondition Failed)
-@:native('errors.PreconditionFailedError')
 extern class PreconditionFailedError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -119,7 +105,6 @@ extern class PreconditionFailedError extends HttpError
 }
 
 // (413 Request Entity Too Large)
-@:native('errors.RequestEntityTooLargeError')
 extern class RequestEntityTooLargeError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -127,7 +112,6 @@ extern class RequestEntityTooLargeError extends HttpError
 }
 
 // (414 Request-URI Too Large)
-@:native('errors.RequesturiTooLargeError')
 extern class RequesturiTooLargeError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -135,7 +119,6 @@ extern class RequesturiTooLargeError extends HttpError
 }
 
 // (415 Unsupported Media Type)
-@:native('errors.UnsupportedMediaTypeError')
 extern class UnsupportedMediaTypeError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -143,7 +126,6 @@ extern class UnsupportedMediaTypeError extends HttpError
 }
 
 // (416 Requested Range Not Satisfiable)
-@:native('errors.RequestedRangeNotSatisfiableError')
 extern class RequestedRangeNotSatisfiableError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -151,7 +133,6 @@ extern class RequestedRangeNotSatisfiableError extends HttpError
 }
 
 // (417 Expectation Failed)
-@:native('errors.ExpectationFailedError')
 extern class ExpectationFailedError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -159,7 +140,6 @@ extern class ExpectationFailedError extends HttpError
 }
 
 // (418 I'm a teapot)
-@:native('errors.ImATeapotError')
 extern class ImATeapotError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -167,7 +147,6 @@ extern class ImATeapotError extends HttpError
 }
 
 // (422 Unprocessable Entity)
-@:native('errors.UnprocessableEntityError')
 extern class UnprocessableEntityError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -175,7 +154,6 @@ extern class UnprocessableEntityError extends HttpError
 }
 
 // (423 Locked)
-@:native('errors.LockedError')
 extern class LockedError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -183,7 +161,6 @@ extern class LockedError extends HttpError
 }
 
 // (424 Failed Dependency)
-@:native('errors.FailedDependencyError')
 extern class FailedDependencyError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -191,7 +168,6 @@ extern class FailedDependencyError extends HttpError
 }
 
 // (425 Unordered Collection)
-@:native('errors.UnorderedCollectionError')
 extern class UnorderedCollectionError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -199,7 +175,6 @@ extern class UnorderedCollectionError extends HttpError
 }
 
 // (426 Upgrade Required)
-@:native('errors.UpgradeRequiredError')
 extern class UpgradeRequiredError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -207,7 +182,6 @@ extern class UpgradeRequiredError extends HttpError
 }
 
 // (428 Precondition Required)
-@:native('errors.PreconditionRequiredError')
 extern class PreconditionRequiredError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -215,7 +189,6 @@ extern class PreconditionRequiredError extends HttpError
 }
 
 // (429 Too Many Requests)
-@:native('errors.TooManyRequestsError')
 extern class TooManyRequestsError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -223,7 +196,6 @@ extern class TooManyRequestsError extends HttpError
 }
 
 // (431 Request Header Fields Too Large)
-@:native('errors.RequestHeaderFieldsTooLargeError')
 extern class RequestHeaderFieldsTooLargeError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -231,7 +203,6 @@ extern class RequestHeaderFieldsTooLargeError extends HttpError
 }
 
 // (500 Internal Server Error)
-@:native('errors.InternalServerError')
 extern class InternalServerError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -239,7 +210,6 @@ extern class InternalServerError extends HttpError
 }
 
 // (501 Not Implemented)
-@:native('errors.NotImplementedError')
 extern class NotImplementedError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -247,7 +217,6 @@ extern class NotImplementedError extends HttpError
 }
 
 // (502 Bad Gateway)
-@:native('errors.BadGatewayError')
 extern class BadGatewayError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -255,7 +224,6 @@ extern class BadGatewayError extends HttpError
 }
 
 // (503 Service Unavailable)
-@:native('errors.ServiceUnavailableError')
 extern class ServiceUnavailableError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -263,7 +231,6 @@ extern class ServiceUnavailableError extends HttpError
 }
 
 // (504 Gateway Time-out)
-@:native('errors.GatewayTimeoutError')
 extern class GatewayTimeoutError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -271,7 +238,6 @@ extern class GatewayTimeoutError extends HttpError
 }
 
 // (505 HTTP Version Not Supported)
-@:native('errors.HttpVersionNotSupportedError')
 extern class HttpVersionNotSupportedError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -279,7 +245,6 @@ extern class HttpVersionNotSupportedError extends HttpError
 }
 
 // (506 Variant Also Negotiates)
-@:native('errors.VariantAlsoNegotiatesError')
 extern class VariantAlsoNegotiatesError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -287,7 +252,6 @@ extern class VariantAlsoNegotiatesError extends HttpError
 }
 
 // (507 Insufficient Storage)
-@:native('errors.InsufficientStorageError')
 extern class InsufficientStorageError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -295,7 +259,6 @@ extern class InsufficientStorageError extends HttpError
 }
 
 // (509 Bandwidth Limit Exceeded)
-@:native('errors.BandwidthLimitExceededError')
 extern class BandwidthLimitExceededError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -303,7 +266,6 @@ extern class BandwidthLimitExceededError extends HttpError
 }
 
 // (510 Not Extended)
-@:native('errors.NotExtendedError')
 extern class NotExtendedError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -311,7 +273,6 @@ extern class NotExtendedError extends HttpError
 }
 
 // (511 Network Authentication Required)
-@:native('errors.NetworkAuthenticationRequiredError')
 extern class NetworkAuthenticationRequiredError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -319,7 +280,6 @@ extern class NetworkAuthenticationRequiredError extends HttpError
 }
 
 // (400 Bad Request)
-@:native('errors.BadDigestError')
 extern class BadDigestError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -327,7 +287,6 @@ extern class BadDigestError extends HttpError
 }
 
 // (405 Method Not Allowed)
-@:native('errors.BadMethodError')
 extern class BadMethodError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -335,7 +294,6 @@ extern class BadMethodError extends HttpError
 }
 
 // (500 Internal Server Error)
-@:native('errors.InternalError')
 extern class InternalError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -343,7 +301,6 @@ extern class InternalError extends HttpError
 }
 
 // (409 Conflict)
-@:native('errors.InvalidArgumentError')
 extern class InvalidArgumentError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -351,7 +308,6 @@ extern class InvalidArgumentError extends HttpError
 }
 
 // (400 Bad Request)
-@:native('errors.InvalidContentError')
 extern class InvalidContentError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -359,7 +315,6 @@ extern class InvalidContentError extends HttpError
 }
 
 // (401 Unauthorized)
-@:native('errors.InvalidCredentialsError')
 extern class InvalidCredentialsError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -367,7 +322,6 @@ extern class InvalidCredentialsError extends HttpError
 }
 
 // (400 Bad Request)
-@:native('errors.InvalidHeaderError')
 extern class InvalidHeaderError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -375,7 +329,6 @@ extern class InvalidHeaderError extends HttpError
 }
 
 // (400 Bad Request)
-@:native('errors.InvalidVersionError')
 extern class InvalidVersionError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -383,7 +336,6 @@ extern class InvalidVersionError extends HttpError
 }
 
 // (409 Conflict)
-@:native('errors.MissingParameterError')
 extern class MissingParameterError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -391,7 +343,6 @@ extern class MissingParameterError extends HttpError
 }
 
 // (403 Forbidden)
-@:native('errors.NotAuthorizedError')
 extern class NotAuthorizedError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -399,7 +350,6 @@ extern class NotAuthorizedError extends HttpError
 }
 
 // (400 Bad Request)
-@:native('errors.RequestExpiredError')
 extern class RequestExpiredError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -407,7 +357,6 @@ extern class RequestExpiredError extends HttpError
 }
 
 // (429 Too Many Requests)
-@:native('errors.RequestThrottledError')
 extern class RequestThrottledError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -415,7 +364,6 @@ extern class RequestThrottledError extends HttpError
 }
 
 // (404 Not Found)
-@:native('errors.ResourceNotFoundError')
 extern class ResourceNotFoundError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
@@ -423,7 +371,6 @@ extern class ResourceNotFoundError extends HttpError
 }
 
 // (406 Not Acceptable)
-@:native('errors.WrongAcceptError')
 extern class WrongAcceptError extends HttpError
 {
     @:overload(function (options : ErrorOptions) : Void {})
