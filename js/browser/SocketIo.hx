@@ -72,5 +72,6 @@ typedef ManagerOpts = {
   ?reconnection: Bool,
   ?reconnectionDelay: Int,
   ?reconnectionDelayMax: Int,
-  ?timeout: Int
+  ?timeout: Int,
+  ?transports: Array<String>
 }
