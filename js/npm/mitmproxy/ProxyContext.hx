@@ -1,4 +1,4 @@
-package js.npm;
+package js.npm.mitmproxy;
 
 import js.Error;
 import js.node.Buffer;
@@ -7,53 +7,8 @@ import js.node.http.IncomingMessage;
 import js.node.http.ServerResponse;
 import js.node.stream.Duplex.IDuplex;
 
-typedef EmptyHandler = ProxyContext -> (Void -> Void) -> Void;
-typedef ErrorHandler = Null<ProxyContext> -> Error -> String -> Void;
-typedef DataHandler<T> = ProxyContext -> T -> (Null<Error> -> Null<T> -> Void) -> Void;
-typedef WsHandler = ProxyContext -> String -> String -> (Null<Error> -> String -> String -> Void) -> Void;
-
-typedef ProxyOptions = {
-  ?port: Int, // The port or named socket to listen on (default: 8080).
-  ?sslCaDir: String, // Path to the certificates cache directory (default: process.cwd() + '/.http-mitm-proxy')
-  ?silent: Bool, // if set to true, nothing will be written to console (default: false)
-  ?keepAlive: Bool, // enable HTTP persistent connection
-  ?timeout: Int, // The number of milliseconds of inactivity before a socket is presumed to have timed out. Defaults to no timeout.
-  ?httpAgent: js.node.http.Agent, // The http.Agent to use when making http requests. Useful for chaining proxys. (default: internal Agent)
-  ?httpsAgent: js.node.https.Agent, // The https.Agent to use when making https requests. Useful for chaining proxys. (default: internal Agent)
-  ?forceSNI: Bool, // force use of SNI by the client. Allow node-http-mitm-proxy to handle all HTTPS requests with a single internal server.
-  ?httpsPort: Int // The port or named socket for https server to listen on. (forceSNI must be enabled)
-}
-
-typedef SslOptions = {
-  keyFile: String,
-  certFile: String,
-  ?hosts: Array<String>
-}
-
-extern class MITMProxy extends ProxyEventHandler
-implements npm.Package.Require<"http-mitm-proxy", "^0.5.0"> {
-  // Middlewares bundles with MITM proxy
-  public static var gunzip: ProxyEventHandler;
-  public static var wildcard: ProxyEventHandler;
-
-
-  public function new(): Void;
-
-  /**
-    Starts the proxy listening on the given port.
-  */
-  public function listen(options: ProxyOptions): Void;
-
-  /**
-    Stops the proxy listening.
-  */
-  public function close(): Void;
-
-  /**
-    Adds a module into the proxy. Modules encapsulate multiple life cycle processing functions into one object.
-  */
-  public function use(middleware: ProxyEventHandler): Void;
-}
+import js.npm.mitmproxy.Handlers;
+import js.npm.mitmproxy.Options;
 
 extern class ProxyContext extends ProxyEventHandler {
   var isSSL: Bool;
