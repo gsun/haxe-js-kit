@@ -3,7 +3,7 @@ package js.npm;
 import haxe.extern.EitherType;
 
 import js.Error;
-import js.npm.Bluebird;
+import js.Promise;
 
 typedef ListrOptions = {
   ?concurrent: Bool,
@@ -30,5 +30,5 @@ implements npm.Package.Require<"listr","^0.10.0"> {
 
   function add(task: ListrTask): Listr;
 
-  function run(?context: Dynamic): Bluebird<Dynamic, Error>
+  function run(?context: Dynamic): Promise<Dynamic>
 }
