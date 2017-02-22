@@ -75,7 +75,7 @@ class Mongoose {
 						params : [],
 						expr : macro {
 
-							var m = untyped mongoose.model( name , $modExpr.get_Schema() , collectionName , skipInit );
+							var m = mongoose.model( name , $modExpr.Schema , collectionName , skipInit );
 							var proto = untyped $modelExpr.prototype;
 							for( f in Reflect.fields(proto) ){
 								untyped m[f] = proto[f];
@@ -175,23 +175,26 @@ class Mongoose {
                 }
             }
         }
-        
         var typeKey = "type";
+        var post = macro null;
         switch(schemaOptions.expr) {
             case EObjectDecl(fields): 
-                var typeKeyField = Lambda.find(fields, function(f) return f.field == 'typeKey');
-                if(typeKeyField == null) {
-                    fields.push({field: 'typeKey', expr: macro $v{typeKey}});
-                } else {
-                    typeKey = switch(typeKeyField.expr.expr) {
-                        case EConst(CString(s)): s;
+                switch Lambda.find(fields, function(f) return f.field == 'typeKey') {
+                    case null: fields.push({field: 'typeKey', expr: macro $v{typeKey}});
+                    case v: switch v.expr.expr {
+                        case EConst(CString(s)): typeKey = s;
                         default: throw "typeKey should be string literal";
                     }
+                }
+                switch Lambda.find(fields, function(f) return f.field == 'post') {
+                    case null: // do nothing
+                    case v: 
+                        post = v.expr;
+                        fields.remove(v);
                 }
                     
             default:
         }
-        
 
 		switch(modelDecl){
 			case TAnonymous( a ):
@@ -249,6 +252,7 @@ class Mongoose {
 										case _ :
 									}
 								}
+								$post;
 							}
 							return _schema;
 
@@ -342,7 +346,7 @@ class Mongoose {
 		switch(type.expr){
 			case EArrayDecl([v]):
 				if( f.meta.has(':ref') ){
-					var type = macro {type:$v};
+					var type = macro {$typeKey:$v};
 					expr = macro [$type];
 					switch( type.expr ){
 						case EObjectDecl(f) :
