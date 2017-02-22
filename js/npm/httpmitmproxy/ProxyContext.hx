@@ -1,4 +1,4 @@
-package js.npm.mitmproxy;
+package js.npm.httpmitmproxy;
 
 import js.Error;
 import js.node.Buffer;

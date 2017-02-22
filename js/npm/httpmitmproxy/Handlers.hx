@@ -1,4 +1,4 @@
-package js.npm.mitmproxy;
+package js.npm.httpmitmproxy;
 
 typedef EmptyHandler = ProxyContext -> (Void -> Void) -> Void;
 typedef ErrorHandler = Null<ProxyContext> -> Error -> String -> Void;

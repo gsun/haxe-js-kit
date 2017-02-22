@@ -1,4 +1,4 @@
-package js.npm.mitmproxy;
+package js.npm.httpmitmproxy;
 
 typedef ProxyOptions = {
   ?port: Int, // The port or named socket to listen on (default: 8080).
