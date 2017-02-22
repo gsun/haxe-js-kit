@@ -13,7 +13,7 @@ typedef BunyanElasticsearchOptions = {
   }
 }
 
-extern class BunyanElasticsearch 
+extern class BunyanElasticsearch
 implements npm.Package.Require<"bunyan-elasticsearch", "^1.0.0"> {
 
   public function new(options: BunyanElasticsearchOptions): Void;
