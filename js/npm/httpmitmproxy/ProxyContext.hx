@@ -7,8 +7,8 @@ import js.node.http.IncomingMessage;
 import js.node.http.ServerResponse;
 import js.node.stream.Duplex.IDuplex;
 
-import js.npm.mitmproxy.Handlers;
-import js.npm.mitmproxy.Options;
+import js.npm.httpmitmproxy.Handlers;
+import js.npm.httpmitmproxy.Options;
 
 extern class ProxyContext extends ProxyEventHandler {
   var isSSL: Bool;
