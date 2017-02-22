@@ -1,7 +1,7 @@
 package js.npm;
 
-import js.npm.mitmproxy.ProxyContext;
-import js.npm.mitmproxy.Options;
+import js.npm.httpmitmproxy.ProxyContext;
+import js.npm.httpmitmproxy.Options;
 
 
 extern class HttpMitmProxy extends ProxyEventHandler
