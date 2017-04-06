@@ -1,7 +1,9 @@
 package js.npm.sequelize;
-import atomshell.Package;
+
+import npm.Package;
 import haxe.Constraints.Function;
 import js.npm.sequelize.Promise;
+// import js.npm.sequelize.DataTypes;
 
 typedef SequelizeOptions = {
 	?dialect:String,
@@ -53,7 +55,7 @@ typedef TransactionOptions = {
 
 typedef ModelDefinition = Dynamic<ModelAttributes>;
 typedef ModelAttributes = {
-    type:DataTypes,
+    ?type:DataTypes,
 	?field:String,			// If set, sequelize will map the attribute name to a different name in the database
 	?defaultValue:Dynamic,	// A literal default value, a javascript function, or an SQL function
 	?allowNull:Bool,		// default: true
@@ -63,8 +65,8 @@ typedef ModelAttributes = {
 	?comment:String,
 	?references:Dynamic,		// (Strign|Model)	If this column references another table, provide it here as a Model, or a string
 	?referencesKey:String,	// default:id 	The column of the foreign table that this column references
-	?onUpdate:OnAction,		// What should happen when the referenced key is updated. 
-	?onDelete:OnAction,		// What should happen when the referenced key is deleted. 
+	?onUpdate:OnAction,		// What should happen when the referenced key is updated.
+	?onDelete:OnAction,		// What should happen when the referenced key is deleted.
 	?get:Void->Dynamic,		// Provide a custom getter for this column. Use this.getDataValue(String) to manipulate the underlying values.
 	?set:Dynamic->Void,		// Provide a custom setter for this column. Use this.setDataValue(String, Value) to manipulate the underlying values.
 	?validate:{},
@@ -92,10 +94,10 @@ typedef ModelOptions = {
 	?setterMethods:Dynamic,	// Provide setter functions that work like those defined per column. If you provide a setter method with the same name as a column, it will be used to update the value of that column. If you provide a name that does not match a column, this function will act as a virtual setter, that can act on and set other values, but will not be persisted
 	?instanceMethods:Dynamic, // Provide functions that are added to each instance (DAO). If you override methods provided by sequelize, you can access the original method using this.constructor.super_.prototype, e.g. this.constructor.super_.prototype.toJSON.apply(this, arguments)
 	?classMethods:Dynamic,	// Provide functions that are added to the model (Model). If you override methods provided by sequelize, you can access the original method using this.constructor.prototype, e.g. this.constructor.prototype.find.apply(this, arguments)
-	?schema:String,			 
+	?schema:String,
 	?engine:String,
 	?charset:String,
-	?comment:String, 		
+	?comment:String,
 	?collate:String,
 	?initialAutoIncrement:String, // Set the initial AUTO_INCREMENT value for the table in MySQL.
 	?paranoid:Bool,	 		// default:false  - Calling destroy will not delete the model, but instead set a deletedAt timestamp if this is true. Needs timestamps=true to work
@@ -126,21 +128,23 @@ typedef Index = {
  */
 extern class Sequelize
 implements npm.Package.Require < "sequelize", "^3.0.0" > {
-	
+
 	// DATATYPES
-	static var STRING:String;		
-	static var CHAR:String;          
-	static var TEXT:String;  		
-	static var INTEGER:String;  	
-	static var BIGINT:String;   		
-	static var FLOAT:String;  	
-	static var DECIMAL:String;	
-	static var BOOLEAN:String; 		
+	// [mck] not sure what this does...
+	/*
+	static var STRING:String;
+	static var CHAR:String;
+	static var TEXT:String;
+	static var INTEGER:String;
+	static var BIGINT:String;
+	static var FLOAT:String;
+	static var DECIMAL:String;
+	static var BOOLEAN:String;
 	static var TIME:String;
-	static var DATE:String;    
+	static var DATE:String;
 	static var DATEONLY:String;
 	static var HSTORE:String;
-	static var JSON:String; 		
+	static var JSON:String;
 	static var JSONB:String;
 	static var NOW:String;
 	static var BLOB:String;
@@ -149,22 +153,51 @@ implements npm.Package.Require < "sequelize", "^3.0.0" > {
 	static var UUIDV1:String;
 	static var UUIDV4:String;
 	static var VIRTUAL:String;
-	static var ENUM:String; 		
-	static var ARRAY:String;		
-	
+	static var ENUM:String;
+	static var ARRAY:String;
+	*/
+
+	// [mck] from https://github.com/abedev/npm/blob/master/src/npm/Sequelize.hx#L50
+	static function STRING(?length : Int, ?binary : Bool) : DataTypes;
+	static function CHAR(?length : Int, ?binary : Bool) : DataTypes;
+	static function INTEGER(?length : Int) : DataTypes;
+	static function BIGINT(?length : Int) : DataTypes;
+	static function FLOAT(?length : Int, ?decimals : Int) : DataTypes;
+	static function DECIMAL(?precision : Int, ?scale : Int) : DataTypes;
+	static function TEXT() : DataTypes;
+	static function NUMBER() : DataTypes;
+	static function BOOLEAN() : DataTypes;
+	static function TIME() : DataTypes;
+	static function DATE() : DataTypes;
+	static function DATEONLY() : DataTypes;
+	static function HSTORE() : DataTypes;
+	static function JSON() : DataTypes;
+	static function JSONB() : DataTypes;
+	static function NOW() : DataTypes;
+	static function BLOB(?length : Int) : DataTypes;
+	static function RANGE(subtype : DataTypes) : DataTypes; // TODO check
+	static function UUID() : DataTypes;
+	static function UUIDV1() : DataTypes;
+	static function UUIDV4() : DataTypes;
+	static function VIRTUAL() : DataTypes;
+	static function ENUM(value : haxe.extern.Rest<String>) : DataTypes;
+	static function ARRAY(type : DataTypes) : DataTypes;
+
+
+
 	function new(?database:String, ?username:String, ?password:String, ?options: SequelizeOptions );
 	function define(tableName:String, fields:ModelDefinition, ?options:ModelOptions):Model;
 	function sync(?options:SyncOptions):Promise;
 	function query(sql:String, ?instanceOrModel:Dynamic, ?options: QueryOptions ):Promise;
 	function set(variables:Dynamic, options: { } ):Promise;
 	function escape(value:String):String;
-	
+
 	// postgres only
-	function createSchema(schema:Dynamic):Promise; 
-	function showAllSchemas():Promise; 
+	function createSchema(schema:Dynamic):Promise;
+	function showAllSchemas():Promise;
 	function dropAllSchemas():Promise;
 	//
-	
+
 	function drop(options: { } ):Promise;
 	function authenticate():Promise;
 	function transaction(?f:Transaction->Promise, ?options: TransactionOptions ):Promise;
