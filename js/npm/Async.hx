@@ -10,8 +10,8 @@ typedef AsyncOptionalCallback<T> = ?T -> Void;
 typedef AsyncMapCallback<Err, T> = Err -> T -> Void;
 
 typedef AsyncLoopCallback<Err> = AsyncCallback<Err> -> Void;
-typedef TaskFunction<T, Err> = ?T -> (Null<Err> -> T);
-typedef Task<T, Err> = EitherType<TaskFunction<T, Err>, Array<EitherType<String, TaskFunction<T, Err>>>>;
+typedef AsyncTaskFunction<Err, T> = ?T -> (Null<Err> -> T);
+typedef AsyncTask<Err, T> = EitherType<AsyncTaskFunction<Err, T>, Array<EitherType<String, AsyncTaskFunction<Err, T>>>>;
 
 extern class Async
 implements npm.Package.Require<"async", "^2.3.0">
@@ -88,7 +88,7 @@ implements npm.Package.Require<"async", "^2.3.0">
 	public static function groupByLimit<T1, T2, Err>(arr : Array<T1>, limit: Int, iterator: T1 -> AsyncMapCallback<Err, T2>, ?callback : AsyncMapCallback<Err, Map<T2, Array<T1>>>) : Void;
 	public static function groupBySeries<T1, T2, Err>(arr : Array<T1>, iterator: T1 -> AsyncMapCallback<Err, T2>, ?callback : AsyncMapCallback<Err, Map<T2, Array<T1>>>) : Void;
 
-	public static function compose<T, Err>(fns : Rest<TaskFunction<T, Err>>): TaskFunction<T, Err>;
+	public static function compose<T, Err>(fns : Rest<AsyncTaskFunction<Err, T>>): AsyncTaskFunction<Err, T>;
 
 	public static function doDuring<T, Err>(fn: Void -> Void, test: Function, ?callback: AsyncOptionalCallback<Err>): Void;
 	public static function doUntil<T, Err>(iteratee: AsyncCallback<T> -> Void, test: T -> Bool, ?callback: AsyncMapCallback<Null<Err>,T>): Void;
@@ -96,7 +96,7 @@ implements npm.Package.Require<"async", "^2.3.0">
 
 	public static function during<T, Err>(test: AsyncMapCallback<Err, Bool>, fn: Void -> Void, ?callback: AsyncOptionalCallback<Err>): Void;
 
-	public static function seq<T, Err>(fns : Rest<TaskFunction<T, Err>>): TaskFunction<T, Err>;
+	public static function seq<T, Err>(fns : Rest<AsyncTaskFunction<Err, T>>): AsyncTaskFunction<Err, T>;
 
 	@:overload(function(fns : Array<Function>) : Function {})
 	@:overload(function<T, T2, T3, T4, Err>(fns : Array<Function>, arg1 : T, arg2 : T2, arg3 : T3, arg4 : T4, callback : AsyncCallback<Err>) : Void {})
@@ -112,9 +112,9 @@ implements npm.Package.Require<"async", "^2.3.0">
 
 	// queue
 	// priorityQueue
-	public static function cargo<T, Err>(worker: AsyncMapCallback<T, Err>, payload: Int) : CargoObject<T, Err>;
+	public static function cargo<T, Err>(worker: AsyncMapCallback<T, Err>, payload: Int) : AsyncCargoObject<T, Err>;
 
-	public static function auto<T, Err>(tasks: DynamicAccess<Task<Err, T>>, ?concurrency : Int, ?callback : AsyncMapCallback<Err, DynamicAccess<T>>) : Void;
+	public static function auto<T, Err>(tasks: DynamicAccess<AsyncTask<Err, T>>, ?concurrency : Int, ?callback : AsyncMapCallback<Err, DynamicAccess<T>>) : Void;
 	public static function autoInject<Err>(tasks: DynamicAccess<Dynamic<Function>>, ?callback : AsyncMapCallback<Err, DynamicAccess<Dynamic>>) : Void;
 
 	@:overload(function<Err, T>(opts : {times: Int, interval: Int}, task : AsyncMapCallback<Err, T> -> Void, ?callback : AsyncMapCallback<Err, T>) : Void {})
@@ -151,7 +151,7 @@ implements npm.Package.Require<"async", "^2.3.0">
 	public static function noConflict() : Class<Async>;
 }
 
-extern class CargoObject<T, Err> {
+extern class AsyncCargoObject<T, Err> {
 
   var payload: Int;
 
