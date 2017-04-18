@@ -1,5 +1,5 @@
 package js.npm.sequelize;
-import atomshell.Package;
+import npm.Package;
 
 typedef DropOptions = {
 	?cascade:Bool // postgres only
@@ -64,13 +64,13 @@ typedef BelongsToManyOptions = {
  * @author TiagoLr
  */
 extern class Model {
-	
-	
+
+
 	function hasOne(target:Model, ?options: { } ):Void;
 	function belongsTo(target:Model, ?options : { ?as: Dynamic, ?foreignKey:String } ):Void;
 	function hasMany(target:Model, ?options: { } ):Void;
 	function belongsToMany(target:Model, ?options: { } ):Void;
-	
+
 	function addHook(hookType:String, cb:Void->Void):Void;
 
 	function removeAttribute(attribute:String):Void;
@@ -84,6 +84,7 @@ extern class Model {
 	function find(?args: { }, ?queryOptions:{} ):Promise;
 	function findAndCount(?findOptions: { }, ?queryOptions:{} ):Promise;
 	function findAll(?args: { }, ?queryOptions: { } ):Promise;
+	function findOne(?args: { }, ?queryOptions: { } ):Promise;
 	function findOrInitialize(options: { } ):Promise;
 	function findOrCreate(options: { }, ?queryOptions:{}):Promise;
 	function upsert(values:Dynamic, ?options: { } ):Promise;
@@ -96,5 +97,5 @@ extern class Model {
 	function restore(options: { } ):Promise;
 	function update(values:Dynamic, options:Dynamic):Promise;
 	function describe():Promise;
-	
+
 }
