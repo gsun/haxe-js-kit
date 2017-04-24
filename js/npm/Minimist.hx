@@ -4,25 +4,25 @@ import js.support.Either.Either3;
 
 typedef MinimistOptions = {
 	// a string or array of strings argument names to always treat as strings
-	?string : Array<String>,
+	@:optional var string : Array<String>;
 
 	// a boolean, string or array of strings to always treat as booleans. if true will treat all double hyphenated arguments without equal signs as boolean (e.g. affects --foo, not -f or --foo=bar)
-	?boolean : Either3<Bool, String, Array<String>>,
+	@:optional var boolean : Either3<Bool, String, Array<String>>;
 
 	// an object mapping string names to strings or arrays of string argument names to use as aliases
-	?alias : Dynamic,
+	@:optional var alias : Dynamic;
 
 	// an object mapping string argument names to default values
-	//?'default' : Dynamic,
+	//@:native('default') @:optional var defaultValues : Dynamic;
 
-	// when true, populate argv._ with everything after the first non-option
-	?stopEarly : Bool,
+	// when true, populate _ with everything after the first non-option
+	@:optional var stopEarly : Bool;
 
-	// when true, populate argv._ with everything before the -- and argv['--'] with everything after the --.
-	//?'--' : Bool,
+	// when true, populate _ with everything before the -- and dashDash with everything after the --.
+	//@:native('--') @:optional var dashDash : Bool;
 
-	// a function which is invoked with a command line parameter not defined in the opts configuration object. If the function returns false, the unknown option is not added to argv.
-	?unknown : String -> Bool
+	// a function which is invoked with a command line parameter not defined in the opts configuration object. If the function returns false, the unknown option is not added.
+	@:optional var unknown : String -> Bool;
 }
 
 extern class Minimist
@@ -33,11 +33,14 @@ implements Dynamic
 	@:overload(function(args : Array<String>) : Minimist {})
 	public static function parseArgs(args : Array<String>, opts : MinimistOptions) : Minimist;
 
+	/**
+	 * Convenience method for parsing process.argv
+	 */
 	@:overload(function() : Minimist {})
 	public static inline function parseNodeArgs(opts : MinimistOptions) : Minimist {
 		return opts == null 
-			? Minimist.parseArgs(Node.process.argv.slice(2))
-			: Minimist.parseArgs(Node.process.argv.slice(2), opts);
+			? Minimist.parseArgs(js.Node.process.argv.slice(2))
+			: Minimist.parseArgs(js.Node.process.argv.slice(2), opts);
 	}
 
 	/**
@@ -46,5 +49,13 @@ implements Dynamic
 	public var _(get, null) : Array<Dynamic>;
 	@:noCompletion inline function get__() : Array<Dynamic> {
 		return this._;
-	}	
+	}
+
+	/**
+	 * When opts.dashDash is true, populate this._ with everything before the -- and this.dashDash with everything after the --
+	 */
+	public var dashDash(get, null) : Array<Dynamic>;
+	@:noCompletion inline function get_dashDash() : Array<Dynamic> {
+		return Reflect.field(this, '--');
+	}
 }

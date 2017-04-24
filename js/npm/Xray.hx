@@ -16,10 +16,15 @@ implements npm.Package.Require<"x-ray", "^2.3.0">
 {
 	@:selfCall function new() : Void;
 
-	// Type the selector, similar to https://github.com/fponticelli/doom/blob/master/src/doom/core/VNode.hx
+	/**
+	 * Start a scrape
+	 */
 	@:overload(function(url : Either<String, Array<String>>, selector : Dynamic) : Xray {})
 	@:selfCall public function x(url : Either<String, Array<String>>, scope : Either<String, Array<String>>, selector : Dynamic) : Xray;
 
+	/**
+	 * Callback when the scrape is completed
+	 */
 	@:selfCall public function done(cb : XrayCallback) : Void;
 	
 	@:overload(function() : XrayDriver {})
