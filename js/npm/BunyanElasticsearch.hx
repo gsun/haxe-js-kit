@@ -10,7 +10,8 @@ typedef BunyanElasticsearchOptions = {
   ?host: EitherType<String, Array<String>>,
   ?ssl: {
     rejectUnauthorized: Bool
-  }
+  },
+  ?pipeline: String
 }
 
 extern class BunyanElasticsearch
