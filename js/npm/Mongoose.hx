@@ -4,7 +4,7 @@ import js.npm.mongoose.*;
 import js.support.Callback;
 
 extern class Mongoose
-implements npm.Package.Require<"mongoose","^4.2.2"> {
+implements npm.Package.Require<"mongoose","^4.3.3"> {
 
 	/**
 	
@@ -16,4 +16,9 @@ implements npm.Package.Require<"mongoose","^4.2.2"> {
 	static function __init__() : Void 
 		mongoose = untyped Mongoose;
 	
+	public static inline function emit<K, V>(key : K, value : V) : Void {
+		untyped __js__('emit')( key, value );
+	}
+	
+    	public static function set(key : String, value : Dynamic) : Void;
 }

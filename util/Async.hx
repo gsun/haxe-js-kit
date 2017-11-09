@@ -19,9 +19,16 @@ class AsyncBuilder {
 	#if macro
 
 		public static inline var asyncMeta = "async";
+		public static inline var doneMeta = ":asyncDone";
 
 		static function build(){
 			var fields : Array<Field> = haxe.macro.Context.getBuildFields();
+
+			var currentClass = Context.getLocalClass().get();
+			if (currentClass.meta.has(doneMeta)) {
+				return fields;
+			}
+			currentClass.meta.add(doneMeta, [], currentClass.pos);
 
 			for( f in fields ){
 				switch( f.kind ){
@@ -66,12 +73,23 @@ class AsyncBuilder {
 						if( v.expr == null ){
 							args.push(v);	
 						}else{
+							var transformDefault = function() {
+								var w = transform( v.expr , block );
+								v.expr = w.expr;
+								block = w.block;
+								newExprs.push( { expr : EVars([v]), pos : e.pos } );
+							}
+							
 							switch( v.expr.expr ){
 								case EMeta(s,em) :
 									if( s.name == asyncMeta ){
 										args.push(v);
 										hasAsync = true;
-						
+
+										// Iterate the em expression, in case
+										// there are @async calls inside it.
+										em.iter(transform.bind(_, block));
+
 										switch( em.expr ){
 									
 											case ECall( e1 , params ) :
@@ -103,16 +121,16 @@ class AsyncBuilder {
 												} );
 												newExprs.push(v.expr);
 												
+											case EDisplay( _, _ ) :
+												transformDefault();
+												
 											default :
 												throw "invalid";
 										}
 									}
 
 								default:
-									var w = transform( v.expr , block );
-									v.expr = w.expr;
-									block = w.block;
-									newExprs.push( { expr : EVars([v]), pos : e.pos } );
+									transformDefault();
 							}
 						}
 						
