@@ -10,7 +10,7 @@ typedef WinstonOptions = {
 
 @:native('Logger')
 extern class Winston
-implements npm.Package.RequireNamespace<"winston", "^2.2.0">
+implements npm.Package.RequireNamespace<"winston", "^2.4.3">
 implements Dynamic
 {	
 	@:overload(function() : Void {})

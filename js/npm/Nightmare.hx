@@ -8,7 +8,7 @@ import haxe.extern.EitherType;
 import haxe.extern.Rest;
 
 extern class Nightmare extends Promise<Dynamic>
-implements npm.Package.Require<"nightmare", "^2.10.0">
+implements npm.Package.Require<"nightmare", "^3.0.1">
 {
 	@:overload(function(options : {}) : Void {})
 	@:selfCall function new() : Void;

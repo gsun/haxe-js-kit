@@ -7,7 +7,7 @@ import js.support.Either;
 typedef OsmosisMiddlewareCallback<T> = Dynamic -> Dynamic -> T;
 
 extern class Osmosis
-implements npm.Package.Require<"osmosis","^1.1.4"> 
+implements npm.Package.Require<"osmosis","^1.1.7"> 
 {
 	@:overload(function(url : String) : Void {})
 	public function new(url : String, params : {}) : Void;
