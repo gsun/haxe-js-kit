@@ -6,7 +6,7 @@ import js.support.Callback;
 typedef Response = TResponse<Dynamic>;
 
 @:native("Response")
-extern class TResponse<L> 
+extern class TResponse<L>
 extends ServerResponse {
 
 	public var charset : String;
@@ -14,7 +14,7 @@ extends ServerResponse {
 
 	@:overload( function( code : Int , url : String ) : Void {} )
 	public function redirect( url : String) : Void;
-  	
+
   	@:overload( function( code:Int , value : Dynamic ) : Void {} )
 	function send( value : Dynamic ) : Void;
 	@:overload( function( code:Int , value : Dynamic ) : Void {} )
@@ -23,7 +23,7 @@ extends ServerResponse {
 	function jsonp( value : Dynamic) : Void;
 
 	function status( code : Int ) : Response;
-	
+
 	@:overload( function( field : String, values : Array<String> ) : Void {} )
 	function append( field : String, value : String ) : Void;
 	@:overload( function( values : Dynamic<String> ) : Response {} )
@@ -43,8 +43,14 @@ extends ServerResponse {
 
 	function attachment( ?filename : String ) : Response;
 
+	@:deprecated('use sendFile instead. deprecated from Express v4.8.0')
 	@:overload( function( path : String , ?options : { ?maxAge:Int , ?root:String } , ?fn : ?Dynamic->Void ) : Response {} )
 	function sendfile( path : String ) : Response;
+
+	@:overload( function( path : String , ?options : { ?maxAge:Int , ?root:String } , ?fn : ?Dynamic->Void ) : Response {} )
+	function sendFile( path : String ) : Response;
+
+
 	function download( path : String , ?filename : String , ?fn : ?Dynamic->Void ) : Response;
 
 	function links( links : Dynamic<String> ) : Response;
