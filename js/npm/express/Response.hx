@@ -50,7 +50,6 @@ extends ServerResponse {
 	@:overload( function( path : String , ?options : { ?maxAge:Int , ?root:String } , ?fn : ?Dynamic->Void ) : Response {} )
 	function sendFile( path : String ) : Response;
 
-
 	function download( path : String , ?filename : String , ?fn : ?Dynamic->Void ) : Response;
 
 	function links( links : Dynamic<String> ) : Response;

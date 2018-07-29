@@ -37,6 +37,6 @@ implements npm.Package.Require<"ya-csv", "^0.9.4">
 
 extern class YaCsvWriter
 {
-	public function writeRecord<T : Array<Dynamic>>(data : T) : Void;
+	public function writeRecord(data : Array<Dynamic>) : Void;
 	public var writeStream : IWritable;
 }
