@@ -1,4 +1,5 @@
 package js.npm;
+import js.support.Callback;
 
 typedef TwitConfig = {
     consumer_key: String,
@@ -21,7 +22,7 @@ extern class Twit
 implements npm.Package.Require<"twit","*"> 
 {
 	public function new( config : TwitConfig ) : Void;
-	public function get( url : String, options : {} , cb : js.support.Callback<Dynamic> ) : Void;
+	public function get( url : String, options : {} , cb : js.support.Callback2<Dynamic,Dynamic> ) : Void;
 	public function post( url : String, options : {} , cb : js.support.Callback<Dynamic> ) : Void;
 	public function stream( url : String , ?options : {} ) : TwitStream;
 
