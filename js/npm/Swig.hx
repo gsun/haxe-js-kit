@@ -3,7 +3,7 @@ package js.npm;
 import haxe.extern.EitherType;
 
 // http://node-swig.github.io/swig-templates/docs/api/#SwigOpts
-typedef SwigOptions = {
+typedef SwigOpts = {
 	?autoescape : Bool, //	boolean	Controls whether or not variable output will automatically be escaped for safe HTML output. Defaults to true. Functions executed in variable statements will not be auto-escaped. Your application/functions should take care of their own auto-escaping.
 	?varControls : Array<String>, //	array	Open and close controls for variables. Defaults to ['{{', '}}'].
 	?tagControls : Array<String>, //	array	Open and close controls for tags. Defaults to ['{%', '%}'].
@@ -26,7 +26,8 @@ typedef TemplateLoader = {
 typedef CompiledSwig = ?{} -> String;
 
 /**
- * https://github.com/node-swig/swig-templates
+ * @url https://github.com/node-swig/swig-templates
+ * v2.0.2
  */
 extern class Swig
 implements npm.Package.Require<"swig-templates","^2.0.2"> {
@@ -35,44 +36,47 @@ implements npm.Package.Require<"swig-templates","^2.0.2"> {
 	public static var version : String;
 
 	// http://node-swig.github.io/swig-templates/docs/api/#setDefaults
-	public static function setDefaults(options : SwigOptions) : Void;
+	public static function setDefaults(options : SwigOpts) : Void;
 
 	// http://node-swig.github.io/swig-templates/docs/api/#setDefaultTZOffset
-	// TODO
+	public static function setDefaultTZOffset( offset : Int) : Void;
 
 	// http://node-swig.github.io/swig-templates/docs/api/#Swig
-	// TODO
+	// TODO : not sure if this will work
+	public static function swig( opts : SwigOpts ) : Void;
 
 	// http://node-swig.github.io/swig-templates/docs/api/#invalidateCache
 	public static function invalidateCache(): Void;
 
 	// http://node-swig.github.io/swig-templates/docs/api/#setFilter
-	// TODO
+	public static function setFilter( name :String , method : haxe.Constraints.Function ) : Void;
 
 	// http://node-swig.github.io/swig-templates/docs/api/#setTag
-	// TODO
+	public static function setTag( name : String , parse : haxe.Constraints.Function , compile : haxe.Constraints.Function , ?ends : Bool , ?blockLevel : Bool ) : Void;
 
 	// http://node-swig.github.io/swig-templates/docs/api/#setExtension
 	public static function setExtension( name : String , object : Dynamic ) : Void;
 
 	// http://node-swig.github.io/swig-templates/docs/api/#precompile
-	// TODO
+	@:overload(function(source : String) : String {})
+	public static function precompile( source : String , options : SwigOpts ) : Void;
 
 	// http://node-swig.github.io/swig-templates/docs/api/#render
 	@:overload(function(source : String) : String {})
-	public static function render(source : String, options : SwigOptions ) : String;
+	public static function render(source : String, options : SwigOpts ) : String;
 
 	// http://node-swig.github.io/swig-templates/docs/api/#renderFile
 	@:overload(function(pathName : String) : String {})
 	public static function renderFile(pathName : String, locals : {}, ?cb : haxe.Constraints.Function) : String;
 
 	// http://node-swig.github.io/swig-templates/docs/api/#compile
-	// @:overload(function(pathName : String) : ? {})
-	// public static function compile(pathName : String, options : SwigOptions) : ?;
+	@:overload(function(source : String) : CompiledSwig {})
+	public static function compile(source : String, options : SwigOpts) : CompiledSwig;
 
 	// http://node-swig.github.io/swig-templates/docs/api/#compileFile
-	// @:overload(function(pathName : String) : CompiledSwig {})
-	// public static function compileFile(pathName : String, options : SwigOptions) : CompiledSwig;
+	@:overload(function(pathName : String) : CompiledSwig {})
+	@:overload(function(pathName : String , options : SwigOpts) : CompiledSwig {})
+	public static function compileFile(pathName : String, options : SwigOpts , cb : haxe.Constraints.Function) : CompiledSwig;
 
 	// http://node-swig.github.io/swig-templates/docs/api/#run
 	@:overload(function(tpl : String) : String {})
