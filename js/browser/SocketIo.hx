@@ -12,6 +12,8 @@ import haxe.Constraints.Function;
 extern
 class SocketIo {
 
+  @:selfCall public static function io(?url : String, ?opts : ManagerOpts) : Socket;
+
   public static function connect(?url : String, ?opts : ManagerOpts) : Socket;
   public static var version : String;
   public static var protocol : Int;
