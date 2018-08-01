@@ -8,6 +8,10 @@ import js.npm.socketio.Listener;
 import js.node.events.EventEmitter.Event;
 import haxe.Constraints.Function;
 
+
+/**
+ * Source: https://github.com/socketio/socket.io-client
+ */
 @:native("io")
 extern
 class SocketIo {
