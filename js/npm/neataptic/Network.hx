@@ -31,11 +31,11 @@ typedef EvolveOptions = {
 	?threads : Int
 }
 
-typedef EvolveResult<T> = {
+typedef EvolveResult = {
 	error : Float,
 	iterations : Int,
 	time : Int,
-	//evolved : T
+	//evolved : Network
 }
 
 typedef TrainingSet = Array<{
@@ -43,26 +43,28 @@ typedef TrainingSet = Array<{
 	output: Either<Array<Int>, Array<Float>>
 }>;
 
-extern class Network<T>
+extern class Network
 {
 	public function train(trainingSet : TrainingSet, options : NetworkOptions) : Void;
 
 	public function evolve(
 		trainingSet : TrainingSet, 
 		options : EvolveOptions
-	) : js.Promise<EvolveResult<T>>;
+	) : js.Promise<EvolveResult>;
 
 	public function activate(nodes : Either<Array<Int>, Array<Float>>) : Array<Float>;
 	public function noTraceActivate(nodes : Either<Array<Int>, Array<Float>>) : Array<Float>;
 
-	public static function fromJSON(json : Dynamic) : Network<Dynamic>;
+	public static function fromJSON(json : Dynamic) : Network;
 	public function toJSON() : haxe.DynamicAccess<Dynamic>;
 
-	public static function crossOver(network1 : Network<Dynamic>, network2 : Network<Dynamic>) : Network<Dynamic>;
+	public static function crossOver(network1 : Network, network2 : Network) : Network;
 
 	public function set(properties : {}) : Void;
 	public function clear() : Void;
 
 	public var input(default, null) : Int;
 	public var output(default, null) : Int;
+
+	public var score : Float;
 }
