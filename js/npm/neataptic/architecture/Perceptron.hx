@@ -1,4 +1,4 @@
-package js.npm.neataptic;
+package js.npm.neataptic.architecture;
 
 import haxe.extern.Rest;
 import js.npm.neataptic.Network;

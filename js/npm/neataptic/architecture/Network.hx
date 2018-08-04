@@ -1,4 +1,4 @@
-package js.npm.neataptic;
+package js.npm.neataptic.architecture;
 
 import haxe.Constraints;
 import js.support.Either;

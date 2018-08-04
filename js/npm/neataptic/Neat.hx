@@ -1,5 +1,6 @@
 package js.npm.neataptic;
 
+import js.npm.neataptic.architecture.Network;
 import haxe.Constraints;
 import js.support.Either;
 import haxe.extern.Rest;
