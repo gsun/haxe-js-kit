@@ -8,9 +8,15 @@ import js.npm.socketio.Listener;
 import js.node.events.EventEmitter.Event;
 import haxe.Constraints.Function;
 
+
+/**
+ * Source: https://github.com/socketio/socket.io-client
+ */
 @:native("io")
 extern
 class SocketIo {
+
+  @:selfCall public static function io(?url : String, ?opts : ManagerOpts) : Socket;
 
   public static function connect(?url : String, ?opts : ManagerOpts) : Socket;
   public static var version : String;
