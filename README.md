@@ -8,7 +8,7 @@ A full step-by-step tutorial is [available here](http://matthijskamstra.github.i
 
 Using haxelib :
 ```
-haxelib git js-kit https://github.com/clemos/haxe-js-kit.git haxelib
+haxelib git js-kit https://github.com/clemos/haxe-js-kit
 ```
 Or you can just download / clone the repo manually, and add the folder to your project's classpath
 
