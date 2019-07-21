@@ -30,6 +30,7 @@ implements npm.Package.RequireNamespace<"mongoose","^4.3.3">
 	public var modelName : String;
 	
 	@:overload(function(): Void {})
+	@:overload(function(fn: Callback0): Void {})
 	@:overload(function(fn: Callback2<TModel<T>, Int>): Void {})
 	public function save( fn : Callback<TModel<T>> ) : Void;
 	public function increment() : TModel<T>;
