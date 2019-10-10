@@ -32,7 +32,11 @@ class CopyMethods {
 		var fields = Context.getBuildFields();
 
 		var fun = switch( _fun.expr ){
+			#if (haxe_ver < '4.0.0-rc.4')
 			case EFunction(null, f) : 
+			#else
+			case EFunction(_, f):
+			#end
 				f;
 			case _ : throw 'unsupported';
 		}
