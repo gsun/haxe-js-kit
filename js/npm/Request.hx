@@ -2,7 +2,7 @@ package js.npm;
 
 import js.node.http.ServerResponse;
 import js.node.http.IncomingMessage;
-import js.node.stream.Readable;
+import js.node.stream.Duplex;
 import js.support.Either;
 import js.support.Either.Either3;
 import js.node.Buffer;
@@ -63,7 +63,7 @@ typedef RequestOptions = {
 	?callback : Error -> IncomingMessage -> Either<String, Buffer>
 }
 
-extern class Request extends Readable<Request>
+extern class Request extends Duplex<Request>
 implements npm.Package.Require<"request", "^2.55.0">
 {
 	public static inline function construct() : Request {
